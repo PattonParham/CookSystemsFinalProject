@@ -33,7 +33,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQCJrepGWQC83H8GoVVb5ivEofzFisVN1N0qNvXL0Dsp5iJ1vmAErfZc2a3vJG3HzTj5lzkdMB_fna0ZT-s',
+        'Authorization' : 'Bearer ' + 'BQAHedsGsbLcIypMZ1UWeVr5uRQw5orvEG_kN2fItTPY1juz2xxqAyrSudL5ijRX7lEIT5Z1ao0be7xg1hc',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -46,7 +46,6 @@ const CallPlayListData = async() => {
   }
   let randomIndex = getRandomInt(arrayLength + 1)
   
-  console.log(randomIndex);
   let randomTrack = data.tracks.items[randomIndex].track;
   console.log(randomTrack);
   let randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
@@ -60,11 +59,11 @@ const CallPlayListData = async() => {
 
 
   console.log("Hey I have been hit, lol")
-  console.log(data);
-  console.log(data.tracks);
-  console.log(data.tracks.items[0].track.name);
-  console.log(data.tracks.items[0].track.artists[0].name);
-  console.log(data.tracks.items[0].track.preview_url);
+  // console.log(data);
+  // console.log(data.tracks);
+  // console.log(data.tracks.items[0].track.name);
+  // console.log(data.tracks.items[0].track.artists[0].name);
+  // console.log(data.tracks.items[0].track.preview_url);
   console.log(arrayLength);
 
 
