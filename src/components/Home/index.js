@@ -38,14 +38,15 @@ const CallPlayListData = async() => {
         "Content-Type": "application/json"
     }
   })
-  
+
 
   let arrayLength = data.tracks.items.length
   const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
   }
   let randomIndex = getRandomInt(arrayLength + 1)
-  
+
+  console.log(randomIndex);
   let randomTrack = data.tracks.items[randomIndex].track;
   console.log(randomTrack);
   let randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
@@ -53,17 +54,17 @@ const CallPlayListData = async() => {
   if (randomTrackPreview === null){
     CallPlayListData();
   }
- 
+
   console.log(randomIndex, randomTrackArtist, randomTrackPreview);
 
 
 
   console.log("Hey I have been hit, lol")
-  // console.log(data);
-  // console.log(data.tracks);
-  // console.log(data.tracks.items[0].track.name);
-  // console.log(data.tracks.items[0].track.artists[0].name);
-  // console.log(data.tracks.items[0].track.preview_url);
+  console.log(data);
+  console.log(data.tracks);
+  console.log(data.tracks.items[0].track.name);
+  console.log(data.tracks.items[0].track.artists[0].name);
+  console.log(data.tracks.items[0].track.preview_url);
   console.log(arrayLength);
 
 
@@ -91,7 +92,7 @@ function rapSet() {
 }
 
 function dubSet() {
-  genre = "79GdJAzRndi9pBpP5WSHWv?si=9ox7t9W-QtO1rtJKIBVVOw"
+  genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
   console.log(genre);
   CallPlayListData();
 }
