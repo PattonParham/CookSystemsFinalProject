@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { getConfigLoading, getGenres, getSelectedGenre, loadGenres, selectGenre } from '../../ducks/config.duck'
 import { getAuthLoading, loadToken } from '../../ducks/auth.duck'
+import {useState} from 'react';
+import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
 
 import axios from 'axios';
@@ -26,21 +28,47 @@ let genre = null;
 
   // our code somewhere in this file
 const CallPlayListData = async() => {
+
   console.log("axios was hit")
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
+
     headers: {
         'Authorization' : 'Bearer ' + 'BQCJrepGWQC83H8GoVVb5ivEofzFisVN1N0qNvXL0Dsp5iJ1vmAErfZc2a3vJG3HzTj5lzkdMB_fna0ZT-s',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
   })
+  
+
+  let arrayLength = data.tracks.items.length
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  let randomIndex = getRandomInt(arrayLength + 1)
+  
+  console.log(randomIndex);
+  let randomTrack = data.tracks.items[randomIndex].track;
+  console.log(randomTrack);
+  let randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
+  let randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
+  if (randomTrackPreview === null){
+    CallPlayListData();
+  }
+ 
+  console.log(randomIndex, randomTrackArtist, randomTrackPreview);
+
+
 
   console.log("Hey I have been hit, lol")
   console.log(data);
   console.log(data.tracks);
   console.log(data.tracks.items[0].track.name);
-}
+  console.log(data.tracks.items[0].track.artists[0].name);
+  console.log(data.tracks.items[0].track.preview_url);
+  console.log(arrayLength);
 
+
+}
 
 
   //switch statement with b
