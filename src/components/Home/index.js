@@ -33,19 +33,19 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQCJrepGWQC83H8GoVVb5ivEofzFisVN1N0qNvXL0Dsp5iJ1vmAErfZc2a3vJG3HzTj5lzkdMB_fna0ZT-s',
+        'Authorization' : 'Bearer ' + 'BQAHedsGsbLcIypMZ1UWeVr5uRQw5orvEG_kN2fItTPY1juz2xxqAyrSudL5ijRX7lEIT5Z1ao0be7xg1hc',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
   })
-  
+
 
   let arrayLength = data.tracks.items.length
   const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
   }
   let randomIndex = getRandomInt(arrayLength + 1)
-  
+
   console.log(randomIndex);
   let randomTrack = data.tracks.items[randomIndex].track;
   console.log(randomTrack);
@@ -54,7 +54,7 @@ const CallPlayListData = async() => {
   if (randomTrackPreview === null){
     CallPlayListData();
   }
- 
+
   console.log(randomIndex, randomTrackArtist, randomTrackPreview);
 
 
@@ -92,7 +92,7 @@ function rapSet() {
 }
 
 function dubSet() {
-  genre = "79GdJAzRndi9pBpP5WSHWv?si=9ox7t9W-QtO1rtJKIBVVOw"
+  genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
   console.log(genre);
   CallPlayListData();
 }
