@@ -56,7 +56,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQC9KEeIh8uQK2jHOTvKsUNGqYunkYuKl3U4LlCexFIUgt5beNi_1nXVgNH3R6uLmAEQJ9w3WOF4M7G0LC8',
+        'Authorization' : 'Bearer ' + 'BQCblfd9kihAHS9BtvVhinY3cvfUFkEk85YbCfQIAjSWvlNKRAU-K_ZYGfmho9y7ffX9BZg6t-2tk0girTU',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -98,8 +98,6 @@ const CallPlayListData = async() => {
 
   document.getElementById("question").style.display = "block";
 
-
-
   sound.play();
 }
 
@@ -110,25 +108,29 @@ function rockSet() {
   genre = "37i9dQZF1DWXRqgorJj26U?si=0799a15f7d834486";
   console.log(genre);
   CallPlayListData();
-
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
 }
-
 function rapSet() {
   genre = "0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb"
   console.log(genre);
   CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
 }
-
 function dubSet() {
   genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
   console.log(genre);
   CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
 }
-
 function classicSet() {
   genre = "6wObnEPQ63a4kei1sEcMdH?si=03461d85bde8492a"
   console.log(genre);
   CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
 }
 
 
