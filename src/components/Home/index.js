@@ -68,7 +68,6 @@ const CallPlayListData = async() => {
   console.log(data.tracks.items[0].track.artists[0].name);
   console.log(data.tracks.items[0].track.preview_url);
   console.log(arrayLength);
-  answer = data.tracks.items[0].track.artists[0].name;
   document.getElementById("question").style.display = "block";
 
 
@@ -109,7 +108,7 @@ function classicSet() {
 
 function compare() {
    event.preventDefault();
-  if (userInput == answer) {
+  if (userInput == randomTrackArtist) {
     console.log("you win");
     document.getElementById("win").style.display = "block";
   }else{
