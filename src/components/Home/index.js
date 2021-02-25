@@ -10,6 +10,9 @@ import ReactAudioPlayer from 'react-audio-player';
 import {Howl, Howler} from 'howler';
 
 import axios from 'axios';
+import './home.css'
+
+
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -21,9 +24,12 @@ const Home = () => {
 
 
 let genre = null;
-let randomTrackArtist = "";
-let randomTrackPreview = "";
+
 let srcInput = document.getElementsByClassName("srcInput");
+let answer = null;
+let userInput = null;
+let randomTrackArtist = null;
+let randomTrackPreview = null;
 
 
 
@@ -66,9 +72,8 @@ const CallPlayListData = async() => {
   let randomTrack = data.tracks.items[randomIndex].track;
   randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
   randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
-  
-    
-  
+
+
   if (randomTrackPreview === null){
     CallPlayListData();
   } else {
@@ -91,40 +96,14 @@ const CallPlayListData = async() => {
     }
   });
 
+  document.getElementById("question").style.display = "block";
+
+
 
   sound.play();
 }
 
 
-
-// const [audioObject, setAudioObject] = useState({
-//   src: `"${randomTrackPreview}"`
-// });
-
-
-
-// function handleAudioChange(event) {
-//   const { name, value } = event.target;
-//   setAudioObject({...audioObject, [name]: value})
-// };
-
-// const DummyConstant = () => {
-//   return(
-//     <div>
-//     <audio className ="audioPlayer" src = {randomTrackPreview} autoPlay={true} ></audio>
-//     <div>fdhsghfchjsefgchjdsgfhgdshfvdshfgjhdsgfhmdxvhj fuck you</div>
-
-//     </div>
-//   )
-// }
-
-
-  //switch statement with b
-
-//   fetchFromSpotify('BQAu9OK6vqMDbHxPpChnsA-EwDD0t2wUxdnmeF-ZzIO5VjGP6YLB_3Ifznyp2fDYjtPKRrWzp5a4JixxwCI',
-//  'playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb');
-
-//  console.log(fetchFromSpotify('BQAu9OK6vqMDbHxPpChnsA-EwDD0t2wUxdnmeF-ZzIO5VjGP6YLB_3Ifznyp2fDYjtPKRrWzp5a4JixxwCI', 'playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb'));
 
 
 function rockSet() {
@@ -152,34 +131,24 @@ function classicSet() {
   CallPlayListData();
 }
 
-// const useAudio = (url) => {
-//   const [audio] = useState(new Audio(url));
-//   const [playing, setPlaying] = useState(false);
-//   const toggle = () => setPlaying(!playing);
-//   useEffect(() => {
-//       playing ? audio.play() : audio.pause();
-//     },
-//     [playing]
-//   );
-//   useEffect(() => {
-//     audio.addEventListener('ended', () => setPlaying(false));
-//     return () => {
-//       audio.removeEventListener('ended', () => setPlaying(false));
-//     };
-//   }, []);
-//   return [playing, toggle];
-// };
+
+function compare() {
+   event.preventDefault();
+  if (userInput == randomTrackArtist) {
+    console.log("you win");
+    document.getElementById("win").style.display = "block";
+  }else{
+    console.log("You lose");
+    document.getElementById("lose").style.display = "block";
+  }
+}
+
+const store = (event) => {
+  userInput = event.target.value
+}
 
 
-// const Player = ({ url }) => {
-//   const [playing, toggle] = useAudio(url);
-//   return (
-//     <div>
-//       <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
-//     </div>
-//   );
 
-// }
   if (authLoading || configLoading) {
     return <div>Loading...</div>
   }
@@ -195,16 +164,17 @@ function classicSet() {
       <button onClick={dubSet}>Dubstep </button>
       <button onClick={classicSet}>Classical </button>
 
-      {/* <audio autoPlay={true}>
-        <source type="audio/ogg" src={randomTrackPreview}/>
-      </audio> */}
-      {/* <ReactAudioPlayer className ="audioPlayer" src={audioObject.src} autoPlay={true} controls/>
-      <input onChange={handleAudioChange} className="srcInput" name="src" value={audioObject.src}></input> */}
-      {/* <Player url={randomTrackPreview}></Player> */}
-      {/* <DummyConstant></DummyConstant> */}
-      
-
-      
+      <form id="question" onSubmit={compare}>
+        <h3> Who is the artist? </h3>
+        <input name="artist" type="text" placeholder="Artist's name" onChange={store}/>
+        <button>Compare Answers</button>
+      </form>
+      <div id="win">
+        <h1> You Win!!!! </h1>
+      </div>
+      <div id="lose">
+        <h1> You Lose </h1>
+      </div>
 
     </div>
   )
