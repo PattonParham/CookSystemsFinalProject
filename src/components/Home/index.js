@@ -6,6 +6,8 @@ import { getAuthLoading, loadToken } from '../../ducks/auth.duck'
 import {useState} from 'react';
 import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
+import ReactAudioPlayer from 'react-audio-player';
+import {Howl, Howler} from 'howler';
 
 import axios from 'axios';
 
@@ -16,7 +18,13 @@ const Home = () => {
   const authLoading = useSelector(getAuthLoading)
   const configLoading = useSelector(getConfigLoading)
 
+
+
 let genre = null;
+let randomTrackArtist = "";
+let randomTrackPreview = "";
+let srcInput = document.getElementsByClassName("srcInput");
+
 
 
   useEffect(() => {
@@ -26,14 +34,23 @@ let genre = null;
       })
   }, [])
 
+
+// const [randomSong, updateRandomSong] = useState('');
+
+// const onChange = (event) => {
+//   updateRandomSong(event.target.value)
+
+// }
+
+
+
   // our code somewhere in this file
 const CallPlayListData = async() => {
 
-  console.log("axios was hit")
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQAHedsGsbLcIypMZ1UWeVr5uRQw5orvEG_kN2fItTPY1juz2xxqAyrSudL5ijRX7lEIT5Z1ao0be7xg1hc',
+        'Authorization' : 'Bearer ' + 'BQC9KEeIh8uQK2jHOTvKsUNGqYunkYuKl3U4LlCexFIUgt5beNi_1nXVgNH3R6uLmAEQJ9w3WOF4M7G0LC8',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -46,29 +63,60 @@ const CallPlayListData = async() => {
   }
   let randomIndex = getRandomInt(arrayLength + 1)
 
-  console.log(randomIndex);
   let randomTrack = data.tracks.items[randomIndex].track;
-  console.log(randomTrack);
-  let randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
-  let randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
+  randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
+  randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
+  
+    
+  
   if (randomTrackPreview === null){
     CallPlayListData();
+  } else {
+    console.log(randomTrack);
+    console.log(randomIndex, randomTrackArtist, randomTrackPreview);
+    console.log(randomTrackPreview);
+    console.log("only non null previews are logging")
   }
 
-  console.log(randomIndex, randomTrackArtist, randomTrackPreview);
+  
 
 
+  var sound = new Howl({
+    src: [randomTrackPreview],
+    format: ['ogg'],
+    autoplay: true,
+    volume: 0.5,
+    onend: function() {
+      console.log('Finished!');
+    }
+  });
 
-  console.log("Hey I have been hit, lol")
-  console.log(data);
-  console.log(data.tracks);
-  console.log(data.tracks.items[0].track.name);
-  console.log(data.tracks.items[0].track.artists[0].name);
-  console.log(data.tracks.items[0].track.preview_url);
-  console.log(arrayLength);
 
-
+  sound.play();
 }
+
+
+
+// const [audioObject, setAudioObject] = useState({
+//   src: `"${randomTrackPreview}"`
+// });
+
+
+
+// function handleAudioChange(event) {
+//   const { name, value } = event.target;
+//   setAudioObject({...audioObject, [name]: value})
+// };
+
+// const DummyConstant = () => {
+//   return(
+//     <div>
+//     <audio className ="audioPlayer" src = {randomTrackPreview} autoPlay={true} ></audio>
+//     <div>fdhsghfchjsefgchjdsgfhgdshfvdshfgjhdsgfhmdxvhj fuck you</div>
+
+//     </div>
+//   )
+// }
 
 
   //switch statement with b
@@ -83,6 +131,7 @@ function rockSet() {
   genre = "37i9dQZF1DWXRqgorJj26U?si=0799a15f7d834486";
   console.log(genre);
   CallPlayListData();
+
 }
 
 function rapSet() {
@@ -103,10 +152,40 @@ function classicSet() {
   CallPlayListData();
 }
 
+// const useAudio = (url) => {
+//   const [audio] = useState(new Audio(url));
+//   const [playing, setPlaying] = useState(false);
+//   const toggle = () => setPlaying(!playing);
+//   useEffect(() => {
+//       playing ? audio.play() : audio.pause();
+//     },
+//     [playing]
+//   );
+//   useEffect(() => {
+//     audio.addEventListener('ended', () => setPlaying(false));
+//     return () => {
+//       audio.removeEventListener('ended', () => setPlaying(false));
+//     };
+//   }, []);
+//   return [playing, toggle];
+// };
 
+
+// const Player = ({ url }) => {
+//   const [playing, toggle] = useAudio(url);
+//   return (
+//     <div>
+//       <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+//     </div>
+//   );
+
+// }
   if (authLoading || configLoading) {
     return <div>Loading...</div>
   }
+
+
+  
 
   return (
     <div>
@@ -115,6 +194,18 @@ function classicSet() {
       <button onClick={rapSet}>Rap </button>
       <button onClick={dubSet}>Dubstep </button>
       <button onClick={classicSet}>Classical </button>
+
+      {/* <audio autoPlay={true}>
+        <source type="audio/ogg" src={randomTrackPreview}/>
+      </audio> */}
+      {/* <ReactAudioPlayer className ="audioPlayer" src={audioObject.src} autoPlay={true} controls/>
+      <input onChange={handleAudioChange} className="srcInput" name="src" value={audioObject.src}></input> */}
+      {/* <Player url={randomTrackPreview}></Player> */}
+      {/* <DummyConstant></DummyConstant> */}
+      
+
+      
+
     </div>
   )
 }
