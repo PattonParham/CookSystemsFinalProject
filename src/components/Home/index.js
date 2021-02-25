@@ -17,6 +17,8 @@ const Home = () => {
   const configLoading = useSelector(getConfigLoading)
 
 let genre = null;
+let answer = null;
+let userInput = null;
 
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQAHedsGsbLcIypMZ1UWeVr5uRQw5orvEG_kN2fItTPY1juz2xxqAyrSudL5ijRX7lEIT5Z1ao0be7xg1hc',
+        'Authorization' : 'Bearer ' + 'BQAGR-N_q8mPaVqKLjqMiJUK9D3bisNW9j2TCcUorpIElJXM_hRuM9hNzoCYsAVnkTunRQWzM1yGxbe_7Og',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -66,6 +68,8 @@ const CallPlayListData = async() => {
   console.log(data.tracks.items[0].track.artists[0].name);
   console.log(data.tracks.items[0].track.preview_url);
   console.log(arrayLength);
+  answer = data.tracks.items[0].track.artists[0].name;
+  document.getElementById("question").style.display = "block";
 
 
 }
@@ -103,6 +107,21 @@ function classicSet() {
   CallPlayListData();
 }
 
+function compare() {
+   event.preventDefault();
+  if (userInput == answer) {
+    console.log("you win");
+    document.getElementById("win").style.display = "block";
+  }else{
+    console.log("You lose");
+    document.getElementById("lose").style.display = "block";
+  }
+}
+
+const store = (event) => {
+  userInput = event.target.value
+}
+
 
   if (authLoading || configLoading) {
     return <div>Loading...</div>
@@ -115,6 +134,17 @@ function classicSet() {
       <button onClick={rapSet}>Rap </button>
       <button onClick={dubSet}>Dubstep </button>
       <button onClick={classicSet}>Classical </button>
+      <form id="question" onSubmit={compare}>
+        <h3> Who is the artist? </h3>
+        <input name="artist" type="text" placeholder="Artist's name" onChange={store}/>
+        <button>Compare Answers</button>
+      </form>
+      <div id="win">
+        <h1> You Win!!!! </h1>
+      </div>
+      <div id="lose">
+        <h1> You Lose </h1>
+      </div>
     </div>
   )
 }
