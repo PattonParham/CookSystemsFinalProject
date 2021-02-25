@@ -8,6 +8,9 @@ import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
 
 import axios from 'axios';
+import './home.css'
+
+
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -19,6 +22,9 @@ const Home = () => {
 let genre = null;
 let answer = null;
 let userInput = null;
+let randomTrackArtist = null;
+let randomTrackPreview = null;
+let randomTrack = null;
 
 
   useEffect(() => {
@@ -35,7 +41,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQAGR-N_q8mPaVqKLjqMiJUK9D3bisNW9j2TCcUorpIElJXM_hRuM9hNzoCYsAVnkTunRQWzM1yGxbe_7Og',
+        'Authorization' : 'Bearer ' + 'BQC9KEeIh8uQK2jHOTvKsUNGqYunkYuKl3U4LlCexFIUgt5beNi_1nXVgNH3R6uLmAEQJ9w3WOF4M7G0LC8',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -49,10 +55,10 @@ const CallPlayListData = async() => {
   let randomIndex = getRandomInt(arrayLength + 1)
 
   console.log(randomIndex);
-  let randomTrack = data.tracks.items[randomIndex].track;
+  randomTrack = data.tracks.items[randomIndex].track;
   console.log(randomTrack);
-  let randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
-  let randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
+  randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
+  randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
   if (randomTrackPreview === null){
     CallPlayListData();
   }
