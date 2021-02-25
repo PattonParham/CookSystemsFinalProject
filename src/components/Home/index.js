@@ -3,9 +3,16 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { getConfigLoading, getGenres, getSelectedGenre, loadGenres, selectGenre } from '../../ducks/config.duck'
 import { getAuthLoading, loadToken } from '../../ducks/auth.duck'
+import {useState} from 'react';
+import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
+import ReactAudioPlayer from 'react-audio-player';
+import {Howl, Howler} from 'howler';
 
 import axios from 'axios';
+import './home.css'
+
+
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -15,6 +22,17 @@ const Home = () => {
   const configLoading = useSelector(getConfigLoading)
 
 
+
+let genre = null;
+
+let srcInput = document.getElementsByClassName("srcInput");
+let answer = null;
+let userInput = null;
+let randomTrackArtist = null;
+let randomTrackPreview = null;
+
+
+
   useEffect(() => {
     Promise.resolve(dispatch(loadToken()))
       .then(({ payload: { value } }) => {
@@ -22,34 +40,114 @@ const Home = () => {
       })
   }, [])
 
+
+// const [randomSong, updateRandomSong] = useState('');
+
+// const onChange = (event) => {
+//   updateRandomSong(event.target.value)
+
+// }
+
+
+
   // our code somewhere in this file
 const CallPlayListData = async() => {
-  console.log("axios was hit")      
-  let {data} =  await axios.get('https://api.spotify.com/v1/playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb',{
+
+  let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
+
     headers: {
-        'Authorization' : 'Bearer ' + 'BQDdAxT5OXxF_6WX9GfOQh73lzbhY3qwyRbfLGo9hvT_9-heCv_EQ-yb2LNA59eaNkKPzuo2pj2XX3vkOSc',
+        'Authorization' : 'Bearer ' + 'BQCblfd9kihAHS9BtvVhinY3cvfUFkEk85YbCfQIAjSWvlNKRAU-K_ZYGfmho9y7ffX9BZg6t-2tk0girTU',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
   })
 
-  console.log("Hey I have been hit, lol")
-  console.log(data);
-  console.log(data.tracks);
-  console.log(data.tracks.items[0].track.name);
+
+  let arrayLength = data.tracks.items.length
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  let randomIndex = getRandomInt(arrayLength + 1)
+
+  let randomTrack = data.tracks.items[randomIndex].track;
+  randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
+  randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
+
+
+  if (randomTrackPreview === null){
+    CallPlayListData();
+  } else {
+    console.log(randomTrack);
+    console.log(randomIndex, randomTrackArtist, randomTrackPreview);
+    console.log(randomTrackPreview);
+    console.log("only non null previews are logging")
+  }
+
+  
+
+
+  var sound = new Howl({
+    src: [randomTrackPreview],
+    format: ['ogg'],
+    autoplay: true,
+    volume: 0.5,
+    onend: function() {
+      console.log('Finished!');
+    }
+  });
+
+  document.getElementById("question").style.display = "block";
+
+  sound.play();
 }
 
-CallPlayListData();
-  
-  
-  //switch statement with b
-
-//   fetchFromSpotify('BQAu9OK6vqMDbHxPpChnsA-EwDD0t2wUxdnmeF-ZzIO5VjGP6YLB_3Ifznyp2fDYjtPKRrWzp5a4JixxwCI', 
-//  'playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb');
-
-//  console.log(fetchFromSpotify('BQAu9OK6vqMDbHxPpChnsA-EwDD0t2wUxdnmeF-ZzIO5VjGP6YLB_3Ifznyp2fDYjtPKRrWzp5a4JixxwCI', 'playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb'));
 
 
+
+function rockSet() {
+  genre = "37i9dQZF1DWXRqgorJj26U?si=0799a15f7d834486";
+  console.log(genre);
+  CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
+}
+function rapSet() {
+  genre = "0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb"
+  console.log(genre);
+  CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
+}
+function dubSet() {
+  genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
+  console.log(genre);
+  CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
+}
+function classicSet() {
+  genre = "6wObnEPQ63a4kei1sEcMdH?si=03461d85bde8492a"
+  console.log(genre);
+  CallPlayListData();
+  document.getElementById("lose").style.display = "none";
+  document.getElementById("win").style.display = "none";
+}
+
+
+function compare() {
+   event.preventDefault();
+  if (userInput == randomTrackArtist) {
+    console.log("you win");
+    document.getElementById("win").style.display = "block";
+  }else{
+    console.log("You lose");
+    document.getElementById("lose").style.display = "block";
+  }
+}
+
+const store = (event) => {
+  userInput = event.target.value
+}
 
 
 
@@ -57,19 +155,29 @@ CallPlayListData();
     return <div>Loading...</div>
   }
 
+
+  
+
   return (
     <div>
-      Genre:
-      <select
-        value={selectedGenre}
-        onChange={(event) => dispatch(selectGenre(event.target.value))}>
-        <option value=''/>
-        {genres.map(genre => (
-          <option key={genre} value={genre}>
-            {genre}
-          </option>
-        ))}
-      </select>
+      Select a genre:
+      <button onClick={rockSet}>Rock </button>
+      <button onClick={rapSet}>Rap </button>
+      <button onClick={dubSet}>Dubstep </button>
+      <button onClick={classicSet}>Classical </button>
+
+      <form id="question" onSubmit={compare}>
+        <h3> Who is the artist? </h3>
+        <input name="artist" type="text" placeholder="Artist's name" onChange={store}/>
+        <button>Compare Answers</button>
+      </form>
+      <div id="win">
+        <h1> You Win!!!! </h1>
+      </div>
+      <div id="lose">
+        <h1> You Lose </h1>
+      </div>
+
     </div>
   )
 }
