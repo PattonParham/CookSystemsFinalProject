@@ -6,6 +6,8 @@ import { getAuthLoading, loadToken } from '../../ducks/auth.duck'
 import {useState} from 'react';
 import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
+import ReactAudioPlayer from 'react-audio-player';
+import {Howl, Howler} from 'howler';
 
 import axios from 'axios';
 import './home.css'
@@ -19,12 +21,16 @@ const Home = () => {
   const authLoading = useSelector(getAuthLoading)
   const configLoading = useSelector(getConfigLoading)
 
+
+
 let genre = null;
+
+let srcInput = document.getElementsByClassName("srcInput");
 let answer = null;
 let userInput = null;
 let randomTrackArtist = null;
 let randomTrackPreview = null;
-let randomTrack = null;
+
 
 
   useEffect(() => {
@@ -34,10 +40,19 @@ let randomTrack = null;
       })
   }, [])
 
+
+// const [randomSong, updateRandomSong] = useState('');
+
+// const onChange = (event) => {
+//   updateRandomSong(event.target.value)
+
+// }
+
+
+
   // our code somewhere in this file
 const CallPlayListData = async() => {
 
-  console.log("axios was hit")
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
@@ -54,44 +69,48 @@ const CallPlayListData = async() => {
   }
   let randomIndex = getRandomInt(arrayLength + 1)
 
-  console.log(randomIndex);
-  randomTrack = data.tracks.items[randomIndex].track;
-  console.log(randomTrack);
+  let randomTrack = data.tracks.items[randomIndex].track;
   randomTrackArtist = data.tracks.items[randomIndex].track.artists[0].name
   randomTrackPreview = data.tracks.items[randomIndex].track.preview_url
+
+
   if (randomTrackPreview === null){
     CallPlayListData();
+  } else {
+    console.log(randomTrack);
+    console.log(randomIndex, randomTrackArtist, randomTrackPreview);
+    console.log(randomTrackPreview);
+    console.log("only non null previews are logging")
   }
 
-  console.log(randomIndex, randomTrackArtist, randomTrackPreview);
+  
 
 
+  var sound = new Howl({
+    src: [randomTrackPreview],
+    format: ['ogg'],
+    autoplay: true,
+    volume: 0.5,
+    onend: function() {
+      console.log('Finished!');
+    }
+  });
 
-  console.log("Hey I have been hit, lol")
-  console.log(data);
-  console.log(data.tracks);
-  console.log(data.tracks.items[0].track.name);
-  console.log(data.tracks.items[0].track.artists[0].name);
-  console.log(data.tracks.items[0].track.preview_url);
-  console.log(arrayLength);
   document.getElementById("question").style.display = "block";
 
 
+
+  sound.play();
 }
 
 
-  //switch statement with b
-
-//   fetchFromSpotify('BQAu9OK6vqMDbHxPpChnsA-EwDD0t2wUxdnmeF-ZzIO5VjGP6YLB_3Ifznyp2fDYjtPKRrWzp5a4JixxwCI',
-//  'playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb');
-
-//  console.log(fetchFromSpotify('BQAu9OK6vqMDbHxPpChnsA-EwDD0t2wUxdnmeF-ZzIO5VjGP6YLB_3Ifznyp2fDYjtPKRrWzp5a4JixxwCI', 'playlists/0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb'));
 
 
 function rockSet() {
   genre = "37i9dQZF1DWXRqgorJj26U?si=0799a15f7d834486";
   console.log(genre);
   CallPlayListData();
+
 }
 
 function rapSet() {
@@ -112,6 +131,7 @@ function classicSet() {
   CallPlayListData();
 }
 
+
 function compare() {
    event.preventDefault();
   if (userInput == randomTrackArtist) {
@@ -128,9 +148,13 @@ const store = (event) => {
 }
 
 
+
   if (authLoading || configLoading) {
     return <div>Loading...</div>
   }
+
+
+  
 
   return (
     <div>
@@ -139,6 +163,7 @@ const store = (event) => {
       <button onClick={rapSet}>Rap </button>
       <button onClick={dubSet}>Dubstep </button>
       <button onClick={classicSet}>Classical </button>
+
       <form id="question" onSubmit={compare}>
         <h3> Who is the artist? </h3>
         <input name="artist" type="text" placeholder="Artist's name" onChange={store}/>
@@ -150,6 +175,7 @@ const store = (event) => {
       <div id="lose">
         <h1> You Lose </h1>
       </div>
+
     </div>
   )
 }
