@@ -1,7 +1,95 @@
 #win{
   display: none;
+  text-align: center;
 }
 
 #lose{
   display: none;
+  text-align: center;
+}
+
+.genreBtn{
+  width: 100px;
+  height: 50px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+
+#rockBtn{
+  margin-left: 100px;
+}
+#rapBtn{
+  margin-left: 10px;
+}
+#dubBtn{
+  margin-left: 100px;
+}
+#classicBtn{
+  margin-left: 10px;
+}
+
+
+#btnInstruction{
+
+  text-align: center;
+}
+
+.transport{
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 210px;
+  height: 70px;
+  background-color: grey;
+  border-radius: 5px;
+  
+
+}
+#playBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 30px;
+  margin-top: 12px;
+  border-radius: 5px;
+  background-image: url("../Images/playBtn.png");
+}
+#pauseBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-image: url("../Images/pauseBtn.png");
+}
+#stopBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-image: url("../Images/stopBtn.png");
+}
+
+.gameCard{
+margin-left: 650px;
+margin-top: 200px;
+
+width: 400px;
+height: 500px;
+
+background-color: blueviolet;
+border-radius: 5px;
+}
+
+#formHead{
+  text-align: center;
+}
+
+#artist{
+ margin-left: 100px;
+ width: 200px;
+}
+#compareBtn{
+  margin-left: 145px;
+  margin-top: 10px;
+  height: 45px;
+  border-radius: 5px;
 }
