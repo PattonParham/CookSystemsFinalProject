@@ -1,10 +1,13 @@
 #win{
   display: none;
+  text-align: center;
 }
 
 #lose{
   display: none;
+  text-align: center;
 }
+
 
 #question{
   display: none;
@@ -56,10 +59,6 @@ button:hover {
 }
 
 
-.musicPlayer{
-  padding-top: 45px;
-  margin-left: 34vw;
-}
 
 .game{
   text-align: center;
@@ -67,4 +66,37 @@ button:hover {
 
 h1{
   font-size: 200px;
+}
+
+.transport{
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 210px;
+  height: 70px;
+  background-color: grey;
+  border-radius: 5px;
+  
+
+}
+#playBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 30px;
+  margin-top: 12px;
+  border-radius: 5px;
+  background-image: url("../Images/playBtn.png");
+}
+#pauseBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-image: url("../Images/pauseBtn.png");
+}
+#stopBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-image: url("../Images/stopBtn.png");
 }

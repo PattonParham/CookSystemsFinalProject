@@ -8,7 +8,7 @@ import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
 import ReactAudioPlayer from 'react-audio-player';
 import {Howl, Howler} from 'howler';
-
+import token from '../../ducks/auth.duck/token.duck';
 import axios from 'axios';
 import './home.css'
 
@@ -38,6 +38,7 @@ let sound = null;
     Promise.resolve(dispatch(loadToken()))
       .then(({ payload: { value } }) => {
         dispatch(loadGenres(value))
+        console.log(value);
       })
   }, [])
 
@@ -48,7 +49,19 @@ let sound = null;
 //   updateRandomSong(event.target.value)
 
 // }
+// let accessToken;
+// const Access = async() => {
 
+//   accessToken = await axios.get('https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token')
+//   .then(res =>  {accessToken = res.data.access_token});
+// }
+
+// Access();
+// console.log(accessToken);
+
+
+ 
+  
 
 
   // our code somewhere in this file
@@ -191,11 +204,11 @@ const store = (event) => {
         <button onClick={classicSet}>Classical </button>
       </div>
 
-      <div class="musicPlayer">
-        <button onClick={pauseBtn}>Pause</button>
-        <button onClick={playBtn}>Play</button>
-        <button onClick={stopBtn}>Stop/Reset</button>
-      </div>
+      <div className="transport">
+     <button id="playBtn" onClick={playBtn}></button>
+     <button id="pauseBtn" onClick={pauseBtn}></button>
+     <button id="stopBtn" onClick={stopBtn}></button>
+     </div>
       <div class="game">
         <form id="question" onSubmit={compare}>
           <h3> Who is the artist? </h3>
