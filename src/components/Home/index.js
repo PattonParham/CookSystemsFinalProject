@@ -97,7 +97,7 @@ const CallPlayListData = async() => {
     console.log("only non null previews are logging")
   }
 
-  
+
 
 
   sound = new Howl({
@@ -190,42 +190,37 @@ const store = (event) => {
   }
 
 
-  
+
 
   return (
-    <div className="gameCard">
-      <div>
-        <div id = "btnInstruction">
-        Select a genre:
-        </div>
-        <div>
-          <button className="genreBtn" id ="rockBtn" onClick={rockSet}>Rock </button>
-          <button className="genreBtn" id ="rapBtn"  onClick={rapSet}>Rap </button>
-        </div>
-        <div>
-          <button className="genreBtn" id ="dubBtn" onClick={dubSet}>Dubstep </button>
-          <button className="genreBtn" id="classicBtn" onClick={classicSet}>Classical </button>
-        </div>
+    <div>
+      <div class="prompt">
+        Select a genre
       </div>
+      <div class="genreButtons">
+        <button onClick={rockSet}>Rock </button>
+        <button onClick={rapSet}>Rap </button>
+        <button onClick={dubSet}>Dubstep </button>
+        <button onClick={classicSet}>Classical </button>
+      </div>
+
       <div className="transport">
      <button id="playBtn" onClick={playBtn}></button>
      <button id="pauseBtn" onClick={pauseBtn}></button>
      <button id="stopBtn" onClick={stopBtn}></button>
      </div>
-      <form id="question" onSubmit={compare}>
-        <h3 id="formHead"> Who is the artist? </h3>
-        <div>
-        <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
-        </div>
-        <div>
-        <button id="compareBtn">Compare Answers</button>
-        </div>
-      </form>
-      <div id="win">
-        <h1> You Win!!!! </h1>
-      </div>
-      <div id="lose">
-        <h1> You Lose </h1>
+      <div class="game">
+        <form id="question" onSubmit={compare}>
+          <h3> Who is the artist? </h3>
+          <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
+          <button>Compare Answers</button>
+          </form>
+          <div id="win">
+            <h1> You Win!!!! </h1>
+          </div>
+          <div id="lose">
+            <h1> You Lose </h1>
+            </div>
       </div>
 
     </div>

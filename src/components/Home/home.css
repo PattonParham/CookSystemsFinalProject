@@ -8,31 +8,64 @@
   text-align: center;
 }
 
-.genreBtn{
-  width: 100px;
-  height: 50px;
-  margin-top: 10px;
-  border-radius: 5px;
+
+#question{
+  display: none;
 }
 
-
-#rockBtn{
-  margin-left: 100px;
-}
-#rapBtn{
-  margin-left: 10px;
-}
-#dubBtn{
-  margin-left: 100px;
-}
-#classicBtn{
-  margin-left: 10px;
+*{
+  background: black;
+  color: Chartreuse;
 }
 
+button{
+  color: grey;
+  border: 1px solid grey;
+  border-radius: 50px;
+  margin-left: 5vw;
+}
 
-#btnInstruction{
+.genreButtons button{
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 
+.genreButtons {
+  margin-left: 25vw;
+}
+
+input{
+  border: 1px solid grey;
+  border-radius: 50px;
+}
+
+button:hover {
+  border: 1px solid green;
+  color: Chartreuse;
+}
+
+.genreButtons button:active, .genreButtons button:focus{
+  background: Chartreuse;
+  color: black;
+  border: ghostwhite;
+}
+
+.prompt{
+  font-size: 50px;
+  color: Chartreuse;
   text-align: center;
+}
+
+
+
+.game{
+  text-align: center;
+}
+
+h1{
+  font-size: 200px;
 }
 
 .transport{
@@ -66,30 +99,4 @@
   margin-left: 5px;
   border-radius: 5px;
   background-image: url("../Images/stopBtn.png");
-}
-
-.gameCard{
-margin-left: 650px;
-margin-top: 200px;
-
-width: 400px;
-height: 500px;
-
-background-color: blueviolet;
-border-radius: 5px;
-}
-
-#formHead{
-  text-align: center;
-}
-
-#artist{
- margin-left: 100px;
- width: 200px;
-}
-#compareBtn{
-  margin-left: 145px;
-  margin-top: 10px;
-  height: 45px;
-  border-radius: 5px;
 }
