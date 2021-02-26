@@ -30,6 +30,7 @@ let answer = null;
 let userInput = null;
 let randomTrackArtist = null;
 let randomTrackPreview = null;
+let sound = null;
 
 
 
@@ -56,7 +57,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQD95KNJPyHxruI4ztZGt4CjLQ6p2G-goDDzcu2TSZxdJ4SyZI-fXXLH_DbxB_sXRy4Ql4IwP2Q9A0gAUGA',
+        'Authorization' : 'Bearer ' + 'BQCoIBmCdvAGgZ3fPfE7GsWrdZt2D154TqyY_EWcA9lYCupp-vv34yy2NltcufSO9G-9vhHwvKqovDXZUM8',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -86,7 +87,7 @@ const CallPlayListData = async() => {
 
 
 
-  var sound = new Howl({
+  sound = new Howl({
     src: [randomTrackPreview],
     format: ['ogg'],
     autoplay: true,
@@ -104,6 +105,7 @@ const CallPlayListData = async() => {
 
 
 
+
 function rockSet() {
   genre = "37i9dQZF1DWXRqgorJj26U?si=0799a15f7d834486";
   console.log(genre);
@@ -111,6 +113,7 @@ function rockSet() {
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
   document.getElementById('artist').value = '';
+  stopBtn()
 }
 function rapSet() {
   genre = "0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb"
@@ -119,6 +122,7 @@ function rapSet() {
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
   document.getElementById('artist').value = '';
+  stopBtn();
 }
 function dubSet() {
   genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
@@ -127,6 +131,7 @@ function dubSet() {
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
   document.getElementById('artist').value = '';
+  stopBtn();
 }
 function classicSet() {
   genre = "6wObnEPQ63a4kei1sEcMdH?si=03461d85bde8492a"
@@ -135,7 +140,19 @@ function classicSet() {
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
   document.getElementById('artist').value = '';
+  stopBtn();
 }
+
+function pauseBtn(){
+  sound.pause();
+}
+function playBtn(){
+  sound.play();
+}
+function stopBtn(){
+  sound.stop();
+}
+
 
 
 function compare() {
@@ -164,22 +181,33 @@ const store = (event) => {
 
   return (
     <div>
-      Select a genre:
-      <button onClick={rockSet}>Rock </button>
-      <button onClick={rapSet}>Rap </button>
-      <button onClick={dubSet}>Dubstep </button>
-      <button onClick={classicSet}>Classical </button>
-
-      <form id="question" onSubmit={compare}>
-        <h3> Who is the artist? </h3>
-        <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
-        <button>Compare Answers</button>
-      </form>
-      <div id="win">
-        <h1> You Win!!!! </h1>
+      <div class="prompt">
+        Select a genre
       </div>
-      <div id="lose">
-        <h1> You Lose </h1>
+      <div class="genreButtons">
+        <button onClick={rockSet}>Rock </button>
+        <button onClick={rapSet}>Rap </button>
+        <button onClick={dubSet}>Dubstep </button>
+        <button onClick={classicSet}>Classical </button>
+      </div>
+
+      <div class="musicPlayer">
+        <button onClick={pauseBtn}>Pause</button>
+        <button onClick={playBtn}>Play</button>
+        <button onClick={stopBtn}>Stop/Reset</button>
+      </div>
+      <div class="game">
+        <form id="question" onSubmit={compare}>
+          <h3> Who is the artist? </h3>
+          <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
+          <button>Compare Answers</button>
+          </form>
+          <div id="win">
+            <h1> You Win!!!! </h1>
+          </div>
+          <div id="lose">
+            <h1> You Lose </h1>
+            </div>
       </div>
 
     </div>
