@@ -56,7 +56,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQCblfd9kihAHS9BtvVhinY3cvfUFkEk85YbCfQIAjSWvlNKRAU-K_ZYGfmho9y7ffX9BZg6t-2tk0girTU',
+        'Authorization' : 'Bearer ' + 'BQD95KNJPyHxruI4ztZGt4CjLQ6p2G-goDDzcu2TSZxdJ4SyZI-fXXLH_DbxB_sXRy4Ql4IwP2Q9A0gAUGA',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -83,7 +83,7 @@ const CallPlayListData = async() => {
     console.log("only non null previews are logging")
   }
 
-  
+
 
 
   var sound = new Howl({
@@ -110,6 +110,7 @@ function rockSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
 }
 function rapSet() {
   genre = "0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb"
@@ -117,6 +118,7 @@ function rapSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
 }
 function dubSet() {
   genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
@@ -124,6 +126,7 @@ function dubSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
 }
 function classicSet() {
   genre = "6wObnEPQ63a4kei1sEcMdH?si=03461d85bde8492a"
@@ -131,6 +134,7 @@ function classicSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
 }
 
 
@@ -156,7 +160,7 @@ const store = (event) => {
   }
 
 
-  
+
 
   return (
     <div>
@@ -168,7 +172,7 @@ const store = (event) => {
 
       <form id="question" onSubmit={compare}>
         <h3> Who is the artist? </h3>
-        <input name="artist" type="text" placeholder="Artist's name" onChange={store}/>
+        <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
         <button>Compare Answers</button>
       </form>
       <div id="win">
