@@ -8,7 +8,7 @@ import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
 import ReactAudioPlayer from 'react-audio-player';
 import {Howl, Howler} from 'howler';
-
+import token from '../../ducks/auth.duck/token.duck';
 import axios from 'axios';
 import './home.css'
 
@@ -38,6 +38,7 @@ let sound = null;
     Promise.resolve(dispatch(loadToken()))
       .then(({ payload: { value } }) => {
         dispatch(loadGenres(value))
+        console.log(value);
       })
   }, [])
 
@@ -48,7 +49,19 @@ let sound = null;
 //   updateRandomSong(event.target.value)
 
 // }
+// let accessToken;
+// const Access = async() => {
 
+//   accessToken = await axios.get('https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token')
+//   .then(res =>  {accessToken = res.data.access_token});
+// }
+
+// Access();
+// console.log(accessToken);
+
+
+ 
+  
 
 
   // our code somewhere in this file
@@ -57,7 +70,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQD95KNJPyHxruI4ztZGt4CjLQ6p2G-goDDzcu2TSZxdJ4SyZI-fXXLH_DbxB_sXRy4Ql4IwP2Q9A0gAUGA',
+        'Authorization' : 'Bearer ' + 'BQCoIBmCdvAGgZ3fPfE7GsWrdZt2D154TqyY_EWcA9lYCupp-vv34yy2NltcufSO9G-9vhHwvKqovDXZUM8',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -84,7 +97,7 @@ const CallPlayListData = async() => {
     console.log("only non null previews are logging")
   }
 
-  
+
 
 
   sound = new Howl({
@@ -177,29 +190,37 @@ const store = (event) => {
   }
 
 
-  
+
 
   return (
     <div>
-      Select a genre:
-      <button onClick={rockSet}>Rock </button>
-      <button onClick={rapSet}>Rap </button>
-      <button onClick={dubSet}>Dubstep </button>
-      <button onClick={classicSet}>Classical </button>
-
-     <button onClick={pauseBtn}>Pause</button>
-     <button onClick={playBtn}>Play</button>
-     <button onClick={stopBtn}>Stop/Reset</button>
-      <form id="question" onSubmit={compare}>
-        <h3> Who is the artist? </h3>
-        <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
-        <button>Compare Answers</button>
-      </form>
-      <div id="win">
-        <h1> You Win!!!! </h1>
+      <div class="prompt">
+        Select a genre
       </div>
-      <div id="lose">
-        <h1> You Lose </h1>
+      <div class="genreButtons">
+        <button onClick={rockSet}>Rock </button>
+        <button onClick={rapSet}>Rap </button>
+        <button onClick={dubSet}>Dubstep </button>
+        <button onClick={classicSet}>Classical </button>
+      </div>
+
+      <div className="transport">
+     <button id="playBtn" onClick={playBtn}></button>
+     <button id="pauseBtn" onClick={pauseBtn}></button>
+     <button id="stopBtn" onClick={stopBtn}></button>
+     </div>
+      <div class="game">
+        <form id="question" onSubmit={compare}>
+          <h3> Who is the artist? </h3>
+          <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
+          <button>Compare Answers</button>
+          </form>
+          <div id="win">
+            <h1> You Win!!!! </h1>
+          </div>
+          <div id="lose">
+            <h1> You Lose </h1>
+            </div>
       </div>
 
     </div>

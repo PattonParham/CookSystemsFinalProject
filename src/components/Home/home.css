@@ -1,7 +1,102 @@
 #win{
   display: none;
+  text-align: center;
 }
 
 #lose{
   display: none;
+  text-align: center;
+}
+
+
+#question{
+  display: none;
+}
+
+*{
+  background: black;
+  color: Chartreuse;
+}
+
+button{
+  color: grey;
+  border: 1px solid grey;
+  border-radius: 50px;
+  margin-left: 5vw;
+}
+
+.genreButtons button{
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.genreButtons {
+  margin-left: 25vw;
+}
+
+input{
+  border: 1px solid grey;
+  border-radius: 50px;
+}
+
+button:hover {
+  border: 1px solid green;
+  color: Chartreuse;
+}
+
+.genreButtons button:active, .genreButtons button:focus{
+  background: Chartreuse;
+  color: black;
+  border: ghostwhite;
+}
+
+.prompt{
+  font-size: 50px;
+  color: Chartreuse;
+  text-align: center;
+}
+
+
+
+.game{
+  text-align: center;
+}
+
+h1{
+  font-size: 200px;
+}
+
+.transport{
+  margin-top: 30px;
+  margin-left: 43vw;
+  width: 210px;
+  height: 70px;
+  background-color: grey;
+  border-radius: 5px;
+  
+
+}
+#playBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 30px;
+  margin-top: 12px;
+  border-radius: 5px;
+  background-image: url("../Images/playBtn.png");
+}
+#pauseBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-image: url("../Images/pauseBtn.png");
+}
+#stopBtn{
+  width: 45px;
+  height: 45px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-image: url("../Images/stopBtn.png");
 }
