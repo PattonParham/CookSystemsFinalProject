@@ -8,7 +8,7 @@ import {Component} from "react";
 // import fetchFromSpotify from '../../services/api';
 import ReactAudioPlayer from 'react-audio-player';
 import {Howl, Howler} from 'howler';
-
+import token from '../../ducks/auth.duck/token.duck';
 import axios from 'axios';
 import './home.css'
 
@@ -30,6 +30,7 @@ let answer = null;
 let userInput = null;
 let randomTrackArtist = null;
 let randomTrackPreview = null;
+let sound = null;
 
 
 
@@ -37,6 +38,7 @@ let randomTrackPreview = null;
     Promise.resolve(dispatch(loadToken()))
       .then(({ payload: { value } }) => {
         dispatch(loadGenres(value))
+        console.log(value);
       })
   }, [])
 
@@ -47,7 +49,19 @@ let randomTrackPreview = null;
 //   updateRandomSong(event.target.value)
 
 // }
+// let accessToken;
+// const Access = async() => {
 
+//   accessToken = await axios.get('https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token')
+//   .then(res =>  {accessToken = res.data.access_token});
+// }
+
+// Access();
+// console.log(accessToken);
+
+
+ 
+  
 
 
   // our code somewhere in this file
@@ -56,7 +70,7 @@ const CallPlayListData = async() => {
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
-        'Authorization' : 'Bearer ' + 'BQCblfd9kihAHS9BtvVhinY3cvfUFkEk85YbCfQIAjSWvlNKRAU-K_ZYGfmho9y7ffX9BZg6t-2tk0girTU',
+        'Authorization' : 'Bearer ' + 'BQCoIBmCdvAGgZ3fPfE7GsWrdZt2D154TqyY_EWcA9lYCupp-vv34yy2NltcufSO9G-9vhHwvKqovDXZUM8',
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -86,7 +100,7 @@ const CallPlayListData = async() => {
   
 
 
-  var sound = new Howl({
+  sound = new Howl({
     src: [randomTrackPreview],
     format: ['ogg'],
     autoplay: true,
@@ -104,12 +118,15 @@ const CallPlayListData = async() => {
 
 
 
+
 function rockSet() {
   genre = "37i9dQZF1DWXRqgorJj26U?si=0799a15f7d834486";
   console.log(genre);
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
+  stopBtn()
 }
 function rapSet() {
   genre = "0yF4TySR6PfVHR0u1oIcWT?si=43c62216fbb847eb"
@@ -117,6 +134,8 @@ function rapSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
+  stopBtn();
 }
 function dubSet() {
   genre = "3ObJ6Qra3CkV0gNCRTtK0c?si=c9d8162095c5403f"
@@ -124,6 +143,8 @@ function dubSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
+  stopBtn();
 }
 function classicSet() {
   genre = "6wObnEPQ63a4kei1sEcMdH?si=03461d85bde8492a"
@@ -131,7 +152,20 @@ function classicSet() {
   CallPlayListData();
   document.getElementById("lose").style.display = "none";
   document.getElementById("win").style.display = "none";
+  document.getElementById('artist').value = '';
+  stopBtn();
 }
+
+function pauseBtn(){
+  sound.pause();
+}
+function playBtn(){
+  sound.play();
+}
+function stopBtn(){
+  sound.stop();
+}
+
 
 
 function compare() {
@@ -159,17 +193,33 @@ const store = (event) => {
   
 
   return (
-    <div>
-      Select a genre:
-      <button onClick={rockSet}>Rock </button>
-      <button onClick={rapSet}>Rap </button>
-      <button onClick={dubSet}>Dubstep </button>
-      <button onClick={classicSet}>Classical </button>
-
+    <div className="gameCard">
+      <div>
+        <div id = "btnInstruction">
+        Select a genre:
+        </div>
+        <div>
+          <button className="genreBtn" id ="rockBtn" onClick={rockSet}>Rock </button>
+          <button className="genreBtn" id ="rapBtn"  onClick={rapSet}>Rap </button>
+        </div>
+        <div>
+          <button className="genreBtn" id ="dubBtn" onClick={dubSet}>Dubstep </button>
+          <button className="genreBtn" id="classicBtn" onClick={classicSet}>Classical </button>
+        </div>
+      </div>
+      <div className="transport">
+     <button id="playBtn" onClick={playBtn}></button>
+     <button id="pauseBtn" onClick={pauseBtn}></button>
+     <button id="stopBtn" onClick={stopBtn}></button>
+     </div>
       <form id="question" onSubmit={compare}>
-        <h3> Who is the artist? </h3>
-        <input name="artist" type="text" placeholder="Artist's name" onChange={store}/>
-        <button>Compare Answers</button>
+        <h3 id="formHead"> Who is the artist? </h3>
+        <div>
+        <input id="artist" type="text" placeholder="Artist's name" onChange={store}/>
+        </div>
+        <div>
+        <button id="compareBtn">Compare Answers</button>
+        </div>
       </form>
       <div id="win">
         <h1> You Win!!!! </h1>
