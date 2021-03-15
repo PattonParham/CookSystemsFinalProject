@@ -1,3 +1,9 @@
+Pick a genre by pressing a button. A random song from a Spotify playlist associated with that genre will play. In the input field, type the name of the artist you think the song is by. When you press the submit button, it will tell you if you win (correct answer) or lose (incorrect answer).
+
+Note: you must regenerate and enter a new spotify access token in the code in src/components/Home/index.js at line 53 where instructed in the comments in order for the api call to work. Any valid access token you generate should work for one hour. 
+
+
+
 # React Assessment - Who's Who
 # Assessment Overview
 
