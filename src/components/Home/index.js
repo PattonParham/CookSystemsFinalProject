@@ -43,33 +43,13 @@ let sound = null;
   }, [])
 
 
-// const [randomSong, updateRandomSong] = useState('');
-
-// const onChange = (event) => {
-//   updateRandomSong(event.target.value)
-
-// }
-// let accessToken;
-// const Access = async() => {
-
-//   accessToken = await axios.get('https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token')
-//   .then(res =>  {accessToken = res.data.access_token});
-// }
-
-// Access();
-// console.log(accessToken);
-
-
- 
-  
-
-
-  // our code somewhere in this file
 const CallPlayListData = async() => {
 
   let {data} =  await axios.get('https://api.spotify.com/v1/playlists/' + genre,{
 
     headers: {
+      //spotify access token needs to be newly generated every hour for their api to work
+                                      //Replace string below with newly generated access token
         'Authorization' : 'Bearer ' + 'BQCoIBmCdvAGgZ3fPfE7GsWrdZt2D154TqyY_EWcA9lYCupp-vv34yy2NltcufSO9G-9vhHwvKqovDXZUM8',
         "Accept": "application/json",
         "Content-Type": "application/json"

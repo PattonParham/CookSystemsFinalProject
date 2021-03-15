@@ -1,0 +1,1 @@
+Pick a genre by pressing a button. A random song from a Spotify playlist associated with that genre will play. In the input field, type the name of the artist you think the song is by. When you press the submit button, it will tell you if you win (correct answer) or lose (incorrect answer).
